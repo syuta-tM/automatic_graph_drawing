@@ -92,7 +92,6 @@ else:
         
         CELL_culumn = ['A','B','C','D','E','F','G','H','I','J','K','M']
         row_2 = []
-        epx_data = []
         #ファイル名が以前と同じ時2行目をコピー
         if os.path.exists('./Excel/' + str(Filename) + '.xlsx'):
             Eb = load_workbook('./Excel/' + str(Filename) + '.xlsx')
@@ -119,7 +118,8 @@ else:
                 r = q + 2
                 ws.cell(row = 2 , column = r).value = row_2[q]
 
-        for i in range(0 , len(Filepath)):    
+        for i in range(0 , len(Filepath)):  
+            epx_data = []  
             #必要データを抽出
             with open(str(path) + '/data/' + FILE[i] , 'r' , encoding="utf-8") as f:
                 elementary_experiment_data = f.readlines()
