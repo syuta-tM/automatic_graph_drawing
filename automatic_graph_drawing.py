@@ -124,7 +124,7 @@ else:
             with open(str(path) + '/data/' + FILE[i] , 'r' , encoding="utf-8") as f:
                 elementary_experiment_data = f.readlines()
                 START_SET = int(START[i]) - 1
-                END_SET = int(END[i]) - 1
+                END_SET = int(END[i])
                 experiment_data = elementary_experiment_data[START_SET : END_SET]
                 f.close()
                 b = 0
