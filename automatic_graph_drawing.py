@@ -12,7 +12,6 @@ import re
 if not os.path.exists('settingData.txt'):
     if not os.path.exists('data'):
         os.mkdir('data')
-        messagebox.showinfo('確認','dataフォルダを生成しました。フォルダ内にデータファイルを保存してください')
 
     path = os.getcwd()
     Filefolder = pathlib.Path(path)
@@ -90,16 +89,18 @@ else:
             CELL = CELL_ALL.split('>')
             f.close()
 
-        L = 0
+        
         CELL_culumn = ['A','B','C','D','E','F','G','H','I','J','K','M']
         row_2 = []
+        epx_data = []
         #ファイル名が以前と同じ時2行目をコピー
         if os.path.exists('./Excel/' + str(Filename) + '.xlsx'):
             Eb = load_workbook('./Excel/' + str(Filename) + '.xlsx')
             Es = Eb.worksheets[0]
             #B2:M2までの対応です。テンプレートを変える際には以下を変更してください
             for IO in range(11):
-                LO = CELL_culumn[IO] + str(2)
+                LL = IO + 1
+                LO = CELL_culumn[LL] + str(2)
                 PO = Es[LO].value
                 row_2.append(PO)
 
@@ -127,18 +128,18 @@ else:
                 experiment_data = elementary_experiment_data[START_SET : END_SET]
                 f.close()
                 b = 0
-
+            
             for d in range(len(experiment_data)):
-                experiment = experiment_data[d].split('\t')
-                for u in range(len(experiment)):
-                    s = u + L
-                    col = CELL[s]
-                    ro = d + 3
-                    writing_cell = col + str(ro)
-                    ws[writing_cell] = float(experiment[u])
-                    b = len(experiment)
+                epx = experiment_data[d].split('\t')
+                epx_data.append(epx[1])
+
+            for d in range(len(epx_data)):
+                col = CELL[i]
+                ro = d + 3
+                writing_cell = col + str(ro)
+                ws[writing_cell] = float(epx_data[d])
         
-            L += b
+            
             shutil.move(str(path) + '/data/' + FILE[i] , str(path) + '/usedData/')
         wb.save('./Excel/' + str(Filename) + '.xlsx')
         os.remove('a.xlsx')
