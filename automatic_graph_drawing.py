@@ -118,9 +118,9 @@ else:
                 writing_cell = col + str(ro)
                 try:
                     float(epx_data[d])
-                except ValueError
+                except ValueError:
                     ws[writing_cell] = int('1') + 'e' + int('-20')
-                else
+                else:
                     ws[writing_cell] = float(epx_data[d])
         
             
