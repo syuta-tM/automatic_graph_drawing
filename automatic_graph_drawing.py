@@ -8,6 +8,8 @@ import sys
 import shutil
 import re
 
+#test
+
 
 if not os.path.exists('settingData.txt'):
     if not os.path.exists('data'):
