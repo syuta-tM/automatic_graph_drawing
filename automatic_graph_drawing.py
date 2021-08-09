@@ -121,7 +121,10 @@ else:
                 except ValueError:
                     ws[writing_cell] = float(0.00000000000000000001)
                 else:
-                    ws[writing_cell] = float(epx_data[d])
+                    if float(epx_data[d]) = 0:
+                        ws[writing_cell] = float(0.00000000000000000001)
+                    else:
+                        ws[writing_cell] = float(epx_data[d])
         
             
             #shutil.move(str(path) + '/data/' + FILE[i] , str(path) + '/usedData/')
