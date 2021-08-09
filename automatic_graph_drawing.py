@@ -119,7 +119,7 @@ else:
                 try:
                     float(epx_data[d])
                 except ValueError:
-                    ws[writing_cell] = int('1') + 'e' + int('-20')
+                    ws[writing_cell] = float(0.00000000000000000001)
                 else:
                     ws[writing_cell] = float(epx_data[d])
         
