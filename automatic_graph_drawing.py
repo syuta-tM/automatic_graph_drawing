@@ -22,9 +22,10 @@ if not os.path.exists('settingData.txt'):
     #settingData.txtが存在しな状態で実行することで規定フォーマットのテキストファイルが生成されます
 
     f = open(str(path) + '/settingData.txt' , 'w' , encoding='utf-8', newline='\n')
-    f.write('開始行数指定:22\n終了行数指定:37\nExcellのファイル名:test\nセルの優先順位:B>F>C>G>D>H>E>I>J>K>L>M'
+    f.write('開始行数指定:22\n終了行数指定:37\nExcellのファイル名:test\nセルの優先順位:B>F>C>G>D>H>E>I>J>K>L>M\n読み込み列:2'
     + '\n\n-----------------------------------------\n'
-    + 'SAMPLE\n開始行数指定:' + '22,44,68,27' + '\n終了行数指定:' + '26,56,76,36' + '\n＊行数は1から数え始めます\nExcellのファイル名:' + 'sample' + '\n＊.xlsxを記入する必要はありません\nセルの優先順位:B>F>C>G>D>H>E>I>J>K>L>M'
+    + 'SAMPLE\n開始行数指定:' + '22,44,68,27' + '\n終了行数指定:' + '26,56,76,36' + '\n＊行数は1から数え始めます\nExcellのファイル名:'
+    + 'sample' + '\n＊.xlsxを記入する必要はありません\nセルの優先順位:B>F>C>G>D>H>E>I>J>K>L>M\n読み込み列:2'
     + '\n-----------------------------------------')
     f.close()
 
@@ -55,6 +56,11 @@ else:
             if len(END) == 1:
                 for i in range(len(Filepath)):
                     END.append(END[0])
+            OLCOLUMN = re.split('[:|,]' , SET[4])
+            del OLCOLUMN[0]
+            if len(OLCOLUMN) == 1:
+                for i in range(len(Filepath)):
+                    OLCOLUMN.append(OLCOLUMN[0])
             Filename = SET[2].replace("\n","").replace("\t","").replace("Excellのファイル名:","")
             CELL_ALL = SET[3].replace("セルの優先順位:","")
             CELL = CELL_ALL.split('>')
@@ -96,13 +102,14 @@ else:
                 elementary_experiment_data = f.readlines()
                 START_SET = int(START[i]) - 1
                 END_SET = int(END[i])
+                OLCOLUMN_SET = int(OLCOLUMN[i]) - 1
                 experiment_data = elementary_experiment_data[START_SET : END_SET]
                 f.close()
                 b = 0
             
             for d in range(len(experiment_data)):
                 epx = experiment_data[d].split('\t')
-                epx_data.append(epx[1])
+                epx_data.append(epx[OLCOLUMN_SET])
 
             for d in range(len(epx_data)):
                 col = CELL[i]
@@ -111,6 +118,6 @@ else:
                 ws[writing_cell] = float(epx_data[d])
         
             
-            shutil.move(str(path) + '/data/' + FILE[i] , str(path) + '/usedData/')
+            #shutil.move(str(path) + '/data/' + FILE[i] , str(path) + '/usedData/')
         wb.save('./Excel/' + str(Filename) + '.xlsx')
         os.remove('a.xlsx')
