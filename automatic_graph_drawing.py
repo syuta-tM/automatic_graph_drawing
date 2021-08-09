@@ -116,7 +116,12 @@ else:
                 col = CELL[i]
                 ro = d + 3
                 writing_cell = col + str(ro)
-                ws[writing_cell] = float(epx_data[d])
+                try:
+                    float(epx_data[d])
+                except ValueError
+                    ws[writing_cell] = int('1') + 'e' + int('-20')
+                else
+                    ws[writing_cell] = float(epx_data[d])
         
             
             #shutil.move(str(path) + '/data/' + FILE[i] , str(path) + '/usedData/')
