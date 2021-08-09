@@ -22,10 +22,10 @@ if not os.path.exists('settingData.txt'):
     #settingData.txtが存在しな状態で実行することで規定フォーマットのテキストファイルが生成されます
 
     f = open(str(path) + '/settingData.txt' , 'w' , encoding='utf-8', newline='\n')
-    f.write('開始行数指定:22\n終了行数指定:37\nExcellのファイル名:test\nセルの優先順位:B>F>C>G>D>H>E>I>J>K>L>M\n読み込み列:2'
+    f.write('開始行数指定:22\n終了行数指定:37\nExcellのファイル名:test\nセルの優先順位:B>F>C>G>D>H>E>I>J>K>L>M\n読み込み列:2\nテンプレートExcel名:BER-template'
     + '\n\n-----------------------------------------\n'
     + 'SAMPLE\n開始行数指定:' + '22,44,68,27' + '\n終了行数指定:' + '26,56,76,36' + '\n＊行数は1から数え始めます\nExcellのファイル名:'
-    + 'sample' + '\n＊.xlsxを記入する必要はありません\nセルの優先順位:B>F>C>G>D>H>E>I>J>K>L>M\n読み込み列:2'
+    + 'sample' + '\n＊.xlsxを記入する必要はありません\nセルの優先順位:B>F>C>G>D>H>E>I>J>K>L>M\n読み込み列:2\nテンプレートExcel名:BER-template'
     + '\n-----------------------------------------')
     f.close()
 
@@ -64,6 +64,7 @@ else:
             Filename = SET[2].replace("\n","").replace("\t","").replace("Excellのファイル名:","")
             CELL_ALL = SET[3].replace("セルの優先順位:","")
             CELL = CELL_ALL.split('>')
+            tempExcel = SET[5].replace("\n","").replace("\t","").replace("テンプレートExcel名:","")
             f.close()
 
         
@@ -81,7 +82,7 @@ else:
                 row_2.append(PO)
 
         #テンプレートの複製
-        shutil.copy('BER-template.xlsx','a.xlsx')
+        shutil.copy(tempExcel + '.xlsx','a.xlsx')
         if not os.path.exists('Excel'):
             os.mkdir('Excel')
         if not os.path.exists('usedData'):
