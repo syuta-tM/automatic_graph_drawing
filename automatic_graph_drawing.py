@@ -121,12 +121,12 @@ else:
                 except ValueError:
                     ws[writing_cell] = float(0.00000000000000000001)
                 else:
-                    if float(epx_data[d]) = 0:
+                    if float(epx_data[d]) == 0:
                         ws[writing_cell] = float(0.00000000000000000001)
                     else:
                         ws[writing_cell] = float(epx_data[d])
         
             
-            #shutil.move(str(path) + '/data/' + FILE[i] , str(path) + '/usedData/')
+            shutil.move(str(path) + '/data/' + FILE[i] , str(path) + '/usedData/')
         wb.save('./Excel/' + str(Filename) + '.xlsx')
         os.remove('a.xlsx')
